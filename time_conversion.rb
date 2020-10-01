@@ -41,15 +41,26 @@
 # Complete the timeConversion function below.
 #
 def timeConversion(s)
-    if s.include? "AM"
-      return s
-    else 
-      time_array = s.split(":")
-      time_array[0] = time_array[0].to_i + 12
+    time_array = s.split(":")
+    if time_array[2].include? "AM" 
+        time_array[2] = time_array[2].gsub(/[A-Z]/, "")
+        puts time_array[0]
+        if time_array[0] == "12"
+            time_array[0] = "00"
+            return time_array.join(":")  
+        else 
+            return time_array.join(":") 
+        end
+    else
       time_array[2] = time_array[2].delete "PM"
-      return time_array.join(":")  
+      if time_array[0] == "12" 
+        return time_array.join(":")
+      else 
+        time_array[0] = time_array[0].to_i + 12 
+        return time_array.join(":")
+      end   
     end 
-  end
+end
   
   fp = File.open(ENV['OUTPUT_PATH'], 'w')
   
